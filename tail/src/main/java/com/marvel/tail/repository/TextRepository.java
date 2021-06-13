@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.marvel.tail.domain.Text;
 import com.marvel.tail.domain.Word;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 

@@ -10,12 +10,12 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
-public class Book {
+public class BookService {
 
     private TextRepository textRepository;
 
     @Autowired
-    public Book(TextRepository textRepository) {
+    public BookService(TextRepository textRepository) {
         this.textRepository = textRepository;
     }
 
