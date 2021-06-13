@@ -1,4 +1,4 @@
-package com.marvel.tail.repository;
+package com.marvel.tail.infrastructure.repository;
 
 import com.marvel.tail.domain.Word;
 import org.springframework.data.repository.PagingAndSortingRepository;

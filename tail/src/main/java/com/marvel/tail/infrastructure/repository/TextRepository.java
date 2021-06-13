@@ -1,4 +1,4 @@
-package com.marvel.tail.repository;
+package com.marvel.tail.infrastructure.repository;
 
 import java.util.List;
 

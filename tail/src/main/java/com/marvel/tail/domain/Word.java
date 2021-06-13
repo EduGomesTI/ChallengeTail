@@ -9,9 +9,9 @@ import java.util.Objects;
 @Entity
 public class Word {
 
-    @Id@GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
     private String word;
 
     public Word(String word) {

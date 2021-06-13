@@ -1,14 +1,15 @@
-package com.marvel.tail.service;
+package com.marvel.tail.infrastructure.service;
 
 import com.marvel.tail.domain.Text;
 import com.marvel.tail.domain.Word;
-import com.marvel.tail.repository.TextRepository;
-import com.marvel.tail.repository.WordRepository;
+import com.marvel.tail.infrastructure.repository.TextRepository;
+import com.marvel.tail.infrastructure.repository.WordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookService {
@@ -23,13 +24,19 @@ public class BookService {
     }
 
     @Transactional
-    public Text addText(String text, List<Word> words){
+    public Text addText(Text text){
 
-        Text _text = new Text();
-        _text.setText(text);
-        _text.setWords(words);
+        return textRepository.save(text);
+    }
 
-        return textRepository.save(_text);
+    @Transactional
+    public Iterable<Text> listTexts(){
+        return textRepository.findAll();
+    }
+
+    @Transactional
+    public Optional<Text> findById(long textId){
+        return textRepository.findById(textId);
     }
 
     @Transactional
