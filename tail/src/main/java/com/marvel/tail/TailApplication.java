@@ -3,22 +3,18 @@ package com.marvel.tail;
 import com.marvel.tail.domain.Text;
 import com.marvel.tail.domain.Word;
 import com.marvel.tail.service.BookService;
-import com.marvel.tail.service.WordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @SpringBootApplication
 public class TailApplication implements CommandLineRunner {
 
 	@Autowired
 	private BookService bookService;
-	@Autowired
-	private WordService wordService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(TailApplication.class, args);
@@ -44,10 +40,10 @@ public class TailApplication implements CommandLineRunner {
 		System.out.println("TailApplication.run");
 		line();
 		System.out.println("Criar Texto");
-		Text text = bookService.add(lorem, words);
+		Text text = bookService.addText(lorem, words);
 		System.out.println(text);
 		line();
-		Iterable<Word> showWords = wordService.showWorlds();
+		Iterable<Word> showWords = bookService.showWorlds();
 		System.out.println(showWords);
 		line();
 	}
