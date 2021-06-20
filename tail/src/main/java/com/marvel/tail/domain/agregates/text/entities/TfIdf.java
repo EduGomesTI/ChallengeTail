@@ -1,6 +1,4 @@
-package com.marvel.tail.infrastructure.repository;
-
-import com.marvel.tail.domain.Word;
+package com.marvel.tail.domain.agregates.text.entities;
 
 public class TfIdf {
 

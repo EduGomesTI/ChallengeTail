@@ -1,4 +1,4 @@
-package com.marvel.tail.domain;
+package com.marvel.tail.domain.agregates.text.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,10 +13,7 @@ public class Word {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String word;
-
-    public Word(String word) {
-        this.word = word;
-    }
+    private int frequency;
 
     public Word() {
     }
@@ -35,6 +32,14 @@ public class Word {
 
     public void setWord(String word) {
         this.word = word;
+    }
+
+    public int getFrequency() {
+        return frequency;
+    }
+
+    public void setFrequency(int frequency) {
+        this.frequency = frequency;
     }
 
     @Override

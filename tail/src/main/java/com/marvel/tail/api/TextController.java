@@ -1,9 +1,10 @@
 package com.marvel.tail.api;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.marvel.tail.application.command.InsertTextCommand;
 import com.marvel.tail.application.dto.InsertTextDto;
 import com.marvel.tail.application.query.QueryText;
-import com.marvel.tail.domain.Text;
+import com.marvel.tail.domain.agregates.text.entities.Text;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

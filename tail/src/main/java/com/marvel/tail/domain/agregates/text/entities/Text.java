@@ -1,4 +1,4 @@
-package com.marvel.tail.domain;
+package com.marvel.tail.domain.agregates.text.entities;
 
 import javax.persistence.*;
 import java.util.List;

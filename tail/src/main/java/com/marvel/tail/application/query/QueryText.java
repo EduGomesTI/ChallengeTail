@@ -1,8 +1,7 @@
 package com.marvel.tail.application.query;
 
-import com.marvel.tail.application.query.Query;
-import com.marvel.tail.domain.Text;
-import com.marvel.tail.infrastructure.service.BookService;
+import com.marvel.tail.domain.agregates.text.entities.Text;
+import com.marvel.tail.domain.agregates.text.Repository.TextRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,21 +10,21 @@ import java.util.Optional;
 @Service
 public class QueryText implements Query<Text> {
 
-    private BookService bookService;
+    private TextRepository textRepository;
 
     @Autowired
-    public QueryText(BookService bookService) {
-        this.bookService = bookService;
+    public QueryText(TextRepository textRepository) {
+        this.textRepository = textRepository;
     }
 
     @Override
     public Iterable<Text> handle() {
-        var texts = bookService.listTexts();
+        var texts = textRepository.listTexts();
         return texts;
     }
 
     @Override
     public Optional<Text> handle(long id) {
-        return bookService.findById(id);
+        return textRepository.findById(id);
     }
 }

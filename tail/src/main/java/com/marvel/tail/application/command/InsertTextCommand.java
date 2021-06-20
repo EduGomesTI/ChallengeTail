@@ -2,10 +2,10 @@ package com.marvel.tail.application.command;
 
 import com.marvel.tail.application.adapter.TextAdapter;
 import com.marvel.tail.application.dto.InsertTextDto;
-import com.marvel.tail.domain.Text;
-import com.marvel.tail.domain.Word;
-import com.marvel.tail.infrastructure.repository.TfIdf;
-import com.marvel.tail.infrastructure.service.BookService;
+import com.marvel.tail.domain.agregates.text.entities.Text;
+import com.marvel.tail.domain.agregates.text.entities.Word;
+import com.marvel.tail.domain.agregates.text.entities.TfIdf;
+import com.marvel.tail.domain.agregates.text.Repository.TextRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +17,11 @@ import java.util.List;
 @Service
 public class InsertTextCommand {
 
-    private BookService bookService;
+    private TextRepository textRepository;
 
     @Autowired
-    public InsertTextCommand(BookService bookService) {
-        this.bookService = bookService;
+    public InsertTextCommand(TextRepository textRepository) {
+        this.textRepository = textRepository;
     }
 
     public Text handle(InsertTextDto insertTextDto) {
@@ -51,7 +51,7 @@ public class InsertTextCommand {
 
         System.out.println(tfIdf);
 
-        return bookService.addText(text);
+        return textRepository.addText(text);
 
     }
 
