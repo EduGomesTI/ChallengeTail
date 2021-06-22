@@ -10,8 +10,7 @@ import com.marvel.tail.domain.agregates.text.services.WordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class InsertTextCommand {
@@ -61,7 +60,29 @@ public class InsertTextCommand {
             word.setFrequency(frequency);
            wordList.add(word);
         }
-        text.setWords(wordList);
+
+        Map<String, Word> word1 = new HashMap<>();
+        for(var i = 0; i<wordList.size();i++){
+            var freq = wordList.get(i).getWord();
+            var w = wordList.get(i);
+            word1.put(freq, w);
+        }
+
+        List<Word> wordsByFrequency = new ArrayList(word1.values());
+
+        Collections.sort(wordsByFrequency, Comparator.comparing(Word::getFrequency));
+
+        Collections.reverse(wordsByFrequency);
+
+        List<Word> newSortedWords = new ArrayList<>();
+
+        var zero = 0;
+
+        for(var i=zero;i<text.getQtdeTerms();i++){
+            newSortedWords.add(wordsByFrequency.get(i));
+        }
+
+        text.setWords(newSortedWords);
 
           return textRepository.addText(text);
 

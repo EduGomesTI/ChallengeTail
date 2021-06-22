@@ -9,6 +9,7 @@ public class TextAdapter {
 
         var text = new Text();
         text.setText(textDto.getText());
+        text.setQtdeTerms(textDto.getQtdeTerms());
 
         return text;
     }

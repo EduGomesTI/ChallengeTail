@@ -13,6 +13,7 @@ public class Text {
     private String text;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Word> words;
+    private Integer qtdeTerms;
 
     public Text() {   }
 
@@ -38,6 +39,14 @@ public class Text {
 
     public void setWords(List<Word> words) {
         this.words = words;
+    }
+
+    public Integer getQtdeTerms() {
+        return qtdeTerms;
+    }
+
+    public void setQtdeTerms(Integer qtdeTerms) {
+        this.qtdeTerms = qtdeTerms;
     }
 
     @Override

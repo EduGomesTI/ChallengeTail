@@ -40,14 +40,14 @@ public class TextService implements ITextService {
     }
 
     @Override
-    public List<String> splitTextInWords(String sentence) {
+    public ArrayList<String> splitTextInWords(String sentence) {
 
         var words = sentence.split(" ");
 
         var _words = new ArrayList<String>();
 
         for(var i = 0; i < words.length; i++){
-            if(words[i].length() > 2){
+            if(words[i].length() > 3){
                 _words.add(words[i]);
             }
         }
