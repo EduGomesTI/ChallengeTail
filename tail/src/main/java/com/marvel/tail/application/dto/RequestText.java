@@ -1,25 +1,20 @@
 package com.marvel.tail.application.dto;
 
-public class InsertTextDto {
+public class RequestText {
     private String text;
 
-    public InsertTextDto() {
+    public RequestText() {
     }
 
-    public InsertTextDto(String text) {
-
+    public RequestText(String text) {
         this.text = text;
     }
 
     public String getText() {
-
         return text;
     }
 
     public void setText(String text) {
-
         this.text = text;
     }
-
-
 }

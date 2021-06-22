@@ -7,21 +7,14 @@ import java.util.List;
 public class Text {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TEXT_SEQ")
     private long id;
     @Lob
     private String text;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Word> words;
 
-    public Text() {
-
-    }
-
-    public Text(String text, List<Word> words) {
-        this.text = text;
-        this.words = words;
-    }
+    public Text() {   }
 
     public long getId() {
         return id;

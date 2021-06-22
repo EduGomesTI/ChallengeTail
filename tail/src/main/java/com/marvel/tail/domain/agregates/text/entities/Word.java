@@ -10,10 +10,10 @@ import java.util.Objects;
 public class Word {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "WORD_SEQ")
     private long id;
     private String word;
-    private int frequency;
+    private Double frequency;
 
     public Word() {
     }
@@ -34,11 +34,11 @@ public class Word {
         this.word = word;
     }
 
-    public int getFrequency() {
+    public Double getFrequency() {
         return frequency;
     }
 
-    public void setFrequency(int frequency) {
+    public void setFrequency(Double frequency) {
         this.frequency = frequency;
     }
 

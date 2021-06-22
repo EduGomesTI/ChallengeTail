@@ -1,5 +1,5 @@
 package com.marvel.tail;
-import com.marvel.tail.domain.agregates.document.services.TfidfCalculation;
+import com.marvel.tail.domain.agregates.document.services.DocumentService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -14,10 +14,10 @@ public class TailApplication {
 		SpringApplication.run(TailApplication.class, args);
 	}
 
-	
+
 //	public static void main(String Args[]) throws IOException {
 //		System.out.print("Enter path for input files ");
 //		Scanner scan = new Scanner(System.in);
-//		TfidfCalculation.processDocuments(scan);
+//		DocumentService.processDocuments(scan);
 //	}
 }

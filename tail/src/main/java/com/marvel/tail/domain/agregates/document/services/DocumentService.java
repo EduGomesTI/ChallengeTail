@@ -1,6 +1,6 @@
 package com.marvel.tail.domain.agregates.document.services;
 
-import com.marvel.tail.domain.agregates.document.entities.DocumentProperties;
+import com.marvel.tail.domain.agregates.document.entities.Document;
 import com.marvel.tail.domain.agregates.document.interfaces.services.IDocumentServices;
 
 import java.io.*;
@@ -8,23 +8,23 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TfidfCalculation implements IDocumentServices {
+public class DocumentService implements IDocumentServices {
 
     private SortedSet<String> wordList = new TreeSet(String.CASE_INSENSITIVE_ORDER);
 
     @Override
     //Calculates inverse Doc frequency.
-    public HashMap<String,Double> calculateInverseDocFrequency(DocumentProperties [] docProperties)
+    public HashMap<String,Double> calculateIDF(Document[] documents)
     {
 
         HashMap<String,Double> InverseDocFreqMap = new HashMap<>();
-        int size = docProperties.length;
+        int size = documents.length;
         double wordCount ;
         for (String word : wordList) {
             wordCount = 0;
             for(int i=0;i<size;i++)
             {
-                HashMap<String,Integer> tempMap = docProperties[i].getWordCountMap();
+                HashMap<String,Integer> tempMap = documents[i].getFrequency();
                 if(tempMap.containsKey(word))
                 {
                     wordCount++;
@@ -40,7 +40,7 @@ public class TfidfCalculation implements IDocumentServices {
 
     @Override
     //calculates Term frequency for all terms
-    public HashMap<String,Double> calculateTermFrequency(HashMap<String,Integer>inputMap) {
+    public HashMap<String,Double> calculateTF(HashMap<String,Integer>inputMap) {
 
         HashMap<String ,Double> termFreqMap = new HashMap<>();
         double sum = 0.0;
@@ -102,7 +102,7 @@ public class TfidfCalculation implements IDocumentServices {
 
     @Override
     // Converts the input text file to hashmap and even dumps the final output as CSV files
-    public  HashMap<String, Integer> getTermsFromFile(String Filename,int count,File folder) {
+    public  HashMap<String, Integer> getWordsFromDocuments(String Filename, int count, File folder) {
         HashMap<String, Integer> WordCount = new HashMap<String, Integer>();
         BufferedReader reader = null;
         HashMap<String, Integer> finalMap = new HashMap<>();
@@ -142,7 +142,7 @@ public class TfidfCalculation implements IDocumentServices {
     public static void processDocuments(Scanner scan) throws IOException {
 
         int count = 0;
-        TfidfCalculation TfidfObj = new TfidfCalculation();
+        DocumentService TfidfObj = new DocumentService();
         File folder = new File(scan.nextLine());
         // loops over files available in the path except for hidden files.
         File[] listOfFiles = folder.listFiles(new FileFilter() {
@@ -153,22 +153,22 @@ public class TfidfCalculation implements IDocumentServices {
         });
         int noOfDocs = listOfFiles.length;
         //containers for documents and their properties required to calculate final score
-        DocumentProperties[] docProperties = new DocumentProperties[noOfDocs];
+        Document[] docProperties = new Document[noOfDocs];
 
 
         // Get wordcount from file and calculate TermFrequency
         for (File file : listOfFiles) {
             if (file.isFile()) {
-                docProperties[count] = new DocumentProperties();
-                HashMap<String,Integer> wordCount = TfidfObj.getTermsFromFile(file.getAbsolutePath(),count, folder);
-                docProperties[count].setWordCountMap(wordCount);
-                HashMap<String,Double> termFrequency = TfidfObj.calculateTermFrequency(docProperties[count].getWordCountMap());
-                docProperties[count].setTermFreqMap(termFrequency);
+                docProperties[count] = new Document();
+                HashMap<String,Integer> wordCount = TfidfObj.getWordsFromDocuments(file.getAbsolutePath(),count, folder);
+                docProperties[count].setFrequency(wordCount);
+                HashMap<String,Double> termFrequency = TfidfObj.calculateTF(docProperties[count].getFrequency());
+                docProperties[count].setWord(termFrequency);
                 count++;
             }
         }
         //calculating InverseDocument frequency
-        HashMap<String,Double> inverseDocFreqMap = TfidfObj.calculateInverseDocFrequency(docProperties);
+        HashMap<String,Double> inverseDocFreqMap = TfidfObj.calculateIDF(docProperties);
 
         //Calculating tf-idf
         count = 0;
@@ -177,7 +177,7 @@ public class TfidfCalculation implements IDocumentServices {
                 HashMap<String,Double> tfIDF = new HashMap<>();
                 double tfIdfValue = 0.0;
                 double idfVal = 0.0;
-                HashMap<String,Double> tf = docProperties[count].getTermFreqMap();
+                HashMap<String,Double> tf = docProperties[count].getWord();
                 Iterator itTF = tf.entrySet().iterator();
                 while (itTF.hasNext()) {
                     Map.Entry pair = (Map.Entry)itTF.next();

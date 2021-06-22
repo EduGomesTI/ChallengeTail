@@ -1,8 +1,7 @@
 package com.marvel.tail.api;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.marvel.tail.application.command.InsertTextCommand;
-import com.marvel.tail.application.dto.InsertTextDto;
+import com.marvel.tail.application.dto.RequestText;
 import com.marvel.tail.application.query.QueryText;
 import com.marvel.tail.domain.agregates.text.entities.Text;
 import org.springframework.http.ResponseEntity;
@@ -42,9 +41,9 @@ public class TextController {
     }
 
     @PostMapping
-    public ResponseEntity create(@RequestBody InsertTextDto textDto) throws URISyntaxException {
+    public ResponseEntity create(@RequestBody RequestText request) throws URISyntaxException {
 
-        Text text = textCommand.handle(textDto);
+        Text text = textCommand.handle(request);
 
         return ResponseEntity.created(
                 new URI("/texts/" + text.getId())
